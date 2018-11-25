@@ -1,4 +1,3 @@
-Едем Лайф, [25.11.18 17:58]
 String checkboxDescription = 'Set checkbox to true if you want to run integration tests'
 String systemTestCustomer = 'ormat'
 String systemTestSite = 'steamboat15'
