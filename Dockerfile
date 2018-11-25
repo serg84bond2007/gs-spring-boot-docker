@@ -59,7 +59,6 @@ node {
         String fileName="log_build_" + env.BUILD_NUMBER + ".txt"
         sh "mv log.txt $fileName; gzip $fileName"
 
-Едем Лайф, [25.11.18 17:58]
 archiveArtifacts allowEmptyArchive: true, artifacts: "$fileName"+".gz"
         currentBuild.result = 'FAILURE'
     }
