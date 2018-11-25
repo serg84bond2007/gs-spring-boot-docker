@@ -1,4 +1,3 @@
-Едем Лайф, [25.11.18 17:58]
 String checkboxDescription = 'Set checkbox to true if you want to run integration tests'
 String systemTestCustomer = 'ormat'
 String systemTestSite = 'steamboat15'
@@ -20,7 +19,7 @@ node {
                 deleteDir()
                 checkout scm
                 if (env.BRANCH_NAME.startsWith("PR-") || env.BRANCH_NAME.equals("develop") || params.integrationTestsRun) {
-                    docker.image("maven:3.5.2-jdk-8").inside('-v "$HOME/.m2":/var/maven/.m2:rw,z -v /etc/passwd:/etc/passwd:ro -e M2_HOME=/var/maven/.m2') {
+                    docker.image("maven:3.3-jdk-8").inside('-v "$HOME/.m2":/var/maven/.m2:rw,z -v /etc/passwd:/etc/passwd:ro -e M2_HOME=/var/maven/.m2') {
                         sh 'mvn  -Duser.home=/var/maven/  --batch-mode clean install'
                         sh "mvn -Duser.home=/var/maven/  sonar:sonar -Dsonar.userHome=/tmp/.sonar/cache -Dsonar.branch=${env.BRANCH_NAME}" +
                         ' -Dsonar.exclusions="src/main/java/moa//*,src/main/java/weka//*,src/main/java/com/yahoo//*"' +
@@ -36,7 +35,7 @@ node {
                   }
              }
                 } else {
-                    docker.image("maven:3.5.2-jdk-8").inside('-v "$HOME/.m2":/var/maven/.m2:rw,z -v /etc/passwd:/etc/passwd:ro -e M2_HOME=/var/maven/.m2') {
+                    docker.image("maven:3.3-jdk-8").inside('-v "$HOME/.m2":/var/maven/.m2:rw,z -v /etc/passwd:/etc/passwd:ro -e M2_HOME=/var/maven/.m2') {
                         sh 'mvn  -Duser.home=/var/maven/  --batch-mode clean package'
                         sh "mvn -Duser.home=/var/maven/  sonar:sonar -Dsonar.userHome=/tmp/.sonar/cache -Dsonar.branch=${env.BRANCH_NAME}" +
                         ' -Dsonar.exclusions="src/main/java/moa//*,src/main/java/weka//*,src/main/java/com/yahoo//*"' +
@@ -60,7 +59,6 @@ node {
         String fileName="log_build_" + env.BUILD_NUMBER + ".txt"
         sh "mv log.txt $fileName; gzip $fileName"
 
-Едем Лайф, [25.11.18 17:58]
 archiveArtifacts allowEmptyArchive: true, artifacts: "$fileName"+".gz"
         currentBuild.result = 'FAILURE'
     }
