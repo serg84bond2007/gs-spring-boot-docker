@@ -1,21 +1,26 @@
-package hello;
+// Define code's package
+package com.github.kubernauts.prometheus_example.springboot.uninstrumented;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+// import the default Spring Boot packages
+import org.springframework.boot.*;
+import org.springframework.boot.autoconfigure.*;
+import org.springframework.web.bind.annotation.*;
 
+// Declare the Standard Spring boot annotation for instantiation
 @SpringBootApplication
+// Add route annotations below
 @RestController
-public class Application {
 
-    @RequestMapping("/")
-    public String home() {
-        return "Hello Docker World Тест удался";
-    }
+// Main application class
+public class HelloWorld {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
+	@RequestMapping("/")
+	String home() {
+		return "Hello World!";
+	}
+
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(HelloWorld.class, args);
+	}
 
 }
